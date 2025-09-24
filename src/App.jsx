@@ -10,7 +10,6 @@ import { loadRobots } from "./core/actions/robot.js";
 import { loadParts } from "./core/actions/part.js";
 
 function App() {
-  const [selectedRobot, setSelectedRobot] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,10 +43,10 @@ function App() {
       <Container>
         <Row>
           <Col>
-            <RobotsList setSelectedRobot={setSelectedRobot} />
+            <RobotsList />
           </Col>
           <Col>
-            <PartsList parts={[]} selectedParts={selectedRobot?.parts} />
+            <PartsList />
           </Col>
         </Row>
       </Container>

@@ -1,17 +1,15 @@
+import { useSelector } from "react-redux";
 import { Part } from "./part";
+import { selectSelectedParts } from "../../core/selectors";
 
-export function PartsList({ parts, selectedParts }) {
-  if (!selectedParts) {
-    return null;
-  }
+export function PartsList() {
+  const selectedParts = useSelector(selectSelectedParts);
 
   return (
     <div>
-      {parts
-        .filter((part) => selectedParts.includes(part.id))
-        .map((part) => (
-          <Part key={part.id} {...part} />
-        ))}
+      {selectedParts.map((part) => (
+        <Part key={part.id} {...part} />
+      ))}
     </div>
   );
 }
