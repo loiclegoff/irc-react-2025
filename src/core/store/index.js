@@ -1,6 +1,6 @@
 import { composeWithDevTools } from "@redux-devtools/extension";
 
 import { createStore } from "redux";
-import { robotReducer } from "../reducers/robot.reducer";
+import { globalReducer } from "../reducers";
 
-export const store = createStore(robotReducer, composeWithDevTools());
+export const store = createStore(globalReducer, composeWithDevTools());
