@@ -5,12 +5,12 @@ import "./App.css";
 import { RobotsList } from "./components/robot/robots-list";
 import { Col, Container, Row } from "react-bootstrap";
 import { PartsList } from "./components/part/parts-list";
+import { useDispatch } from "react-redux";
+import { loadRobots } from "./core/actions/index.js";
 
 function App() {
   const [selectedRobot, setSelectedRobot] = useState(null);
-
-  // state is initialized by a props
-  const [robots, setRobots] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
@@ -18,7 +18,8 @@ function App() {
         "https://robot-cpe-2024.cleverapps.io/robots"
       );
       const data = await response.json();
-      setRobots(data);
+      // même chose dispatch({ type: "LOAD_ROBOTS", payload: data });
+      dispatch(loadRobots(data));
     }
     // Get data from an API.
     fetchData();
@@ -46,7 +47,7 @@ function App() {
       <Container>
         <Row>
           <Col>
-            <RobotsList robots={robots} setSelectedRobot={setSelectedRobot} />
+            <RobotsList setSelectedRobot={setSelectedRobot} />
           </Col>
           <Col>
             <PartsList parts={parts} selectedParts={selectedRobot?.parts} />
