@@ -6,7 +6,8 @@ import { RobotsList } from "./components/robot/robots-list";
 import { Col, Container, Row } from "react-bootstrap";
 import { PartsList } from "./components/part/parts-list";
 import { useDispatch } from "react-redux";
-import { loadRobots } from "./core/actions/index.js";
+import { loadRobots } from "./core/actions/robot.js";
+import { loadParts } from "./core/actions/part.js";
 
 function App() {
   const [selectedRobot, setSelectedRobot] = useState(null);
@@ -18,14 +19,12 @@ function App() {
         "https://robot-cpe-2024.cleverapps.io/robots"
       );
       const data = await response.json();
-      // même chose dispatch({ type: "LOAD_ROBOTS", payload: data });
+      // même chose dispatch({ type: "LOAD_PARTS", payload: data });
       dispatch(loadRobots(data));
     }
     // Get data from an API.
     fetchData();
   }, []);
-
-  const [parts, setParts] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -33,13 +32,11 @@ function App() {
         "https://robot-cpe-2024.cleverapps.io/parts"
       );
       const data = await response.json();
-      setParts(data);
+      dispatch(loadParts(data));
     }
     // Get data from an API.
     fetchData();
   }, []);
-
-  console.log(selectedRobot);
 
   return (
     <div className="app">
@@ -50,7 +47,7 @@ function App() {
             <RobotsList setSelectedRobot={setSelectedRobot} />
           </Col>
           <Col>
-            <PartsList parts={parts} selectedParts={selectedRobot?.parts} />
+            <PartsList parts={[]} selectedParts={selectedRobot?.parts} />
           </Col>
         </Row>
       </Container>

@@ -1,6 +1,6 @@
-import { LOAD_ROBOTS } from "../actions"
+import { LOAD_ROBOTS, SELECT_ROBOT } from "../actions/robot"
 
-const initialState = { robots: [] }
+const initialState = { robots: [], selectedPartIds: [] }
 
 export function robotReducer(state = initialState, action) {
   // Check to see if the reducer cares about this action
@@ -9,6 +9,12 @@ export function robotReducer(state = initialState, action) {
       return {
         ...state,
         robots: action.payload
+      }
+    }
+    case SELECT_ROBOT: {
+      return {
+        ...state,
+        selectedPartIds: action.payload
       }
     }
     // Otherwise return the existing state unchanged
